@@ -7,29 +7,16 @@ import 'package:moor_flutter/moor_flutter.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart' as p;
 
-part '../../../../sqlite_crud/lib/src/data/moor_database.g.dart';
+part 'database.g.dart';
 
-part '../../../../sqlite_crud/lib/src/data/daos/user_dao.dart';
+part 'daos/product_dao.dart';
 
-/**
- * flutter packages pub run build_runner watch
- */
-
-
-@DataClassName('User')
-class Users extends Table {
+@DataClassName('Product')
+class Product extends Table {
   IntColumn get id => integer().autoIncrement()();
 
   TextColumn get name =>text().withLength(max: 50)();
 
-  TextColumn get lastName => text().withLength(max: 50).nullable()();
-
-  TextColumn get username => text().withLength(max: 255).nullable()();
-
-  BoolColumn get active => boolean().withDefault(Constant(true))();
-
-  DateTimeColumn get created =>
-      dateTime().withDefault(Constant(DateTime.now()))();
 }
 
 LazyDatabase _openConnection() {
@@ -41,7 +28,7 @@ LazyDatabase _openConnection() {
 }
 
 
-@UseMoor(tables: [Users], daos: [UserDao])
+@UseMoor(tables: [Product], daos: [ProductDao])
 class AppDatabase extends _$AppDatabase {
 //  AppDatabase() : super(_openConnection());
 
